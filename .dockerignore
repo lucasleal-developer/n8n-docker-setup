@@ -1,0 +1,34 @@
+# Dados do PostgreSQL
+postgres_data/
+
+# Logs
+*.log
+logs/
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de backup
+*.bak
+*.backup
+
+# Node modules (se houver)
+node_modules/
+
+# Arquivos de ambiente locais
+.env.local
+.env.development
+.env.test
+
+# Arquivos Git
+.git/
+.gitignore
+
+# Documentação
+README.md
+*.md

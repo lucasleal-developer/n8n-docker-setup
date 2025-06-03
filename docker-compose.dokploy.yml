@@ -2,6 +2,11 @@ version: "3.8"
 
 volumes:
   db_storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./postgres_data
   n8n_storage:
   redis_storage:
 
@@ -46,15 +51,16 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_NON_ROOT_USER=${POSTGRES_NON_ROOT_USER}
       - POSTGRES_NON_ROOT_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - db_storage:/var/lib/postgresql/data
-      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
+      - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh:ro
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready']
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
     networks:
       - dokploy-network
 
