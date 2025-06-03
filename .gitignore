@@ -1,0 +1,56 @@
+# Arquivos de ambiente com informações sensíveis
+.env
+.env.local
+.env.production
+.env.staging
+
+# Override personalizado do docker-compose
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# Dados dos volumes Docker
+data/
+postgres-data/
+redis-data/
+n8n-data/
+
+# Backups
+*.sql
+*.dump
+backups/
+
+# Certificados SSL
+*.pem
+*.key
+*.crt
+ssl/
+certs/
+
+# Arquivos temporários
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node.js (caso tenha scripts locais)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de configuração local
+local-config/
+custom-config/
+
+# Scripts personalizados com credenciais
+custom-scripts/
+private-scripts/
