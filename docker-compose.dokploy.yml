@@ -46,15 +46,17 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_NON_ROOT_USER=${POSTGRES_NON_ROOT_USER}
       - POSTGRES_NON_ROOT_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
     volumes:
       - db_storage:/var/lib/postgresql/data
       - ./init-data.sh:/docker-entrypoint-initdb.d/init-data.sh
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} || exit 1']
+      interval: 15s
+      timeout: 15s
+      retries: 8
+      start_period: 60s
     networks:
       - dokploy-network
 
